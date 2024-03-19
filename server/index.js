@@ -4,10 +4,7 @@ const cors = require("cors");
 const mysql = require("mysql");
 
 const app = express();
-const corsOptions = {
-  origin: "http://localhost:5000/",
-};
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
@@ -38,7 +35,7 @@ app.get("/submissions/", (req, res) => {
 
 app.post("/submissions/create/", (req, res) => {
   const data = req.body;
-  const query = `INSERT INTO submissions (username, language, stdin, stdout, source_code) VALUES ('${data.username}', '${data.language}', '${data.stdin}', '${data.stdout}', '${data.source_code}')`;
+  const query = `INSERT INTO submissions (username, code_language, stdin, stdout, source_code) VALUES ('${data.username}', '${data.code_language}', '${data.stdin}', '${data.stdout}', '${data.source_code}')`;
 
   connection.query(query, (err, results) => {
     if (err) {
