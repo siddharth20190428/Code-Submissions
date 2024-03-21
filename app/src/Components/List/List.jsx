@@ -81,6 +81,7 @@ function List({ isModalOpen, setIsModalOpen }) {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {submission.source_code
+                          .slice(0, 100)
                           .split("\n")
                           .map((line, index) => (
                             <div key={index}>{line}</div>

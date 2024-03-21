@@ -7,6 +7,20 @@ export default function Modal({ isModalOpen, setIsModalOpen }) {
   const [formData, setFormData] = useState({});
   const cancelButtonRef = useRef(null);
 
+  const handleSubmit = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/submissions/create", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      // setSubmissions(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Transition.Root show={isModalOpen} as={Fragment}>
       <Dialog
@@ -43,10 +57,10 @@ export default function Modal({ isModalOpen, setIsModalOpen }) {
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                    onClick={() => setIsModalOpen(false)}
+                    className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto"
+                    onClick={handleSubmit}
                   >
-                    Deactivate
+                    Submit a Code
                   </button>
                   <button
                     type="button"
