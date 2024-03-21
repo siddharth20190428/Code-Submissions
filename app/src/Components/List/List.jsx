@@ -1,6 +1,25 @@
 import { useEffect, useState } from "react";
 import "./List.css";
 
+const fields = [
+  "Username",
+  "Code Language",
+  "Stdin",
+  "TimeStamp",
+  "Source Code",
+];
+
+const HeaderField = ({ field }) => {
+  return (
+    <th
+      scope="col"
+      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+    >
+      {field}
+    </th>
+  );
+};
+
 function List() {
   const [submissions, setSubmissions] = useState([]);
   useEffect(() => {
@@ -17,33 +36,45 @@ function List() {
     getData();
   }, []);
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <td>S. No.</td>
-            <td>Username</td>
-            <td>Code Language</td>
-            <td>Stdin</td>
-            <td>Timestamp</td>
-            <td>Source Code</td>
-          </tr>
-        </thead>
-        <tbody>
-          {submissions.length > 0
-            ? submissions.map((obj, ind) => (
-                <tr key={obj.id}>
-                  <td>{ind + 1}</td>
-                  <td>{obj.username}</td>
-                  <td>{obj.code_language}</td>
-                  <td>{obj.stdin}</td>
-                  <td>{obj.timestamp}</td>
-                  <td>{obj.source_code.slice(0, 100)}</td>
-                </tr>
-              ))
-            : ""}
-        </tbody>
-      </table>
+    <div className="py-2 mx-auto inline-block min-w-full sm:px-6 lg:px-8">
+      <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              {fields.map((field, ind) => (
+                <HeaderField key={ind} field={field} />
+              ))}
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {submissions.length
+              ? submissions.map((submission) => (
+                  <tr key={submission.id}>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900">
+                        {submission.username}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">
+                        {submission.code_language}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {submission.stdin}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {new Date(submission.submission_time).toLocaleString()}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {submission.source_code}
+                    </td>
+                  </tr>
+                ))
+              : ""}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
