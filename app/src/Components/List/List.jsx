@@ -20,7 +20,7 @@ const HeaderField = ({ field }) => {
   );
 };
 
-function List() {
+function List({ isModalOpen, setIsModalOpen }) {
   const [submissions, setSubmissions] = useState([]);
   useEffect(() => {
     const getData = async () => {
@@ -34,46 +34,58 @@ function List() {
       }
     };
     getData();
-  }, []);
+  }, [isModalOpen]);
   return (
-    <div className="py-2 mx-auto inline-block min-w-full sm:px-6 lg:px-8">
-      <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              {fields.map((field, ind) => (
-                <HeaderField key={ind} field={field} />
-              ))}
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {submissions.length
-              ? submissions.map((submission) => (
-                  <tr key={submission.id}>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
-                        {submission.username}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
-                        {submission.code_language}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {submission.stdin}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {new Date(submission.submission_time).toLocaleString()}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {submission.source_code}
-                    </td>
-                  </tr>
-                ))
-              : ""}
-          </tbody>
-        </table>
+    <div className="sm:px-6 lg:px-8 py-4">
+      <div className="my-4 flex justify-between">
+        <h1 className="text-3xl">Code Submissions</h1>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          type="button"
+          className="px-2.5 py-1.5 border-none font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 "
+        >
+          Create A Submission
+        </button>
+      </div>
+      <div className="py-2 mx-auto inline-block min-w-full">
+        <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                {fields.map((field, ind) => (
+                  <HeaderField key={ind} field={field} />
+                ))}
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {submissions.length
+                ? submissions.map((submission) => (
+                    <tr key={submission.id}>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm font-medium text-gray-900">
+                          {submission.username}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">
+                          {submission.code_language}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {submission.stdin}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {new Date(submission.submission_time).toLocaleString()}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {submission.source_code}
+                      </td>
+                    </tr>
+                  ))
+                : ""}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

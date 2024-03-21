@@ -1,14 +1,17 @@
-import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import List from "./Components/List/List";
-import Form from "./Components/Form/Form";
+import Modal from "./Components/Modal";
+import { useState } from "react";
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
-    <Routes>
-      <Route path="/" Component={List} />
-      <Route path="/create" Component={Form} />
-    </Routes>
+    <>
+      <List isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      {isModalOpen && (
+        <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      )}
+    </>
   );
 }
 
