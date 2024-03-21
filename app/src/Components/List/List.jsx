@@ -61,18 +61,19 @@ function List({ isModalOpen, setIsModalOpen }) {
               {submissions.length
                 ? submissions.map((submission) => (
                     <tr key={submission.id}>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900">
-                          {submission.username}
-                        </div>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {submission.username}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">
-                          {submission.code_language}
-                        </div>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {submission.code_language}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {submission.stdin}
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {submission.stdin
+                          .slice(0, 100)
+                          .split("\n")
+                          .map((line, index) => (
+                            <div key={index}>{line}</div>
+                          ))}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {new Date(submission.created_at).toLocaleString(

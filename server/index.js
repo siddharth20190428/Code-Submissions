@@ -9,4 +9,8 @@ app.use(bodyParser.json());
 
 app.use("/submissions", submissionsRoutes);
 
+app.get("/", (req, res) => {
+  return res.send("Welcome to code submissions API");
+});
+
 app.listen(5000, () => console.log("Server listening on PORT 5000"));
