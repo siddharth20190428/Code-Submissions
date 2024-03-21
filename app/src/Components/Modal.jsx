@@ -9,13 +9,16 @@ export default function Modal({ isModalOpen, setIsModalOpen }) {
 
   const handleSubmit = async () => {
     try {
-      const res = await fetch("http://localhost:5000/submissions/create", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      // setSubmissions(data);
+      const res = await fetch(
+        "https://code-submissions.onrender.com/submissions/create",
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
+      setIsModalOpen(false);
+      setFormData({});
     } catch (error) {
       console.log(error);
     }

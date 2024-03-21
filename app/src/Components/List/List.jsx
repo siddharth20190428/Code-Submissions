@@ -25,7 +25,9 @@ function List({ isModalOpen, setIsModalOpen }) {
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await fetch("http://localhost:5000/submissions/");
+        const res = await fetch(
+          "https://code-submissions.onrender.com/submissions/"
+        );
         const data = await res.json();
 
         setSubmissions(data);
