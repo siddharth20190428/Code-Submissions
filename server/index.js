@@ -1,26 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const mysql = require("mysql");
+const { connection } = require("./connection");
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "Password@123",
-  database: "DB4",
-});
-
-connection.connect((err) => {
-  if (err) {
-    console.error("Error connecting to MySQL: " + err.stack);
-    return;
-  }
-  console.log("Connected to MySQL");
-});
 
 app.get("/submissions/", (req, res) => {
   connection.query("SELECT * FROM submissions", (err, results) => {
