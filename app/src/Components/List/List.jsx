@@ -75,10 +75,16 @@ function List({ isModalOpen, setIsModalOpen }) {
                         {submission.stdin}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(submission.submission_time).toLocaleString()}
+                        {new Date(submission.created_at).toLocaleString(
+                          "en-IN"
+                        )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {submission.source_code}
+                        {submission.source_code
+                          .split("\n")
+                          .map((line, index) => (
+                            <div key={index}>{line}</div>
+                          ))}
                       </td>
                     </tr>
                   ))

@@ -2,18 +2,22 @@ const connection = require("./connection.js");
 
 // GET /submissions
 function getAllSubmissions(req, res) {
-  connection.query("SELECT * FROM submissions", (err, results) => {
-    if (err) {
-      console.error("Error executing query: " + err.stack);
-      return res.status(500).send("Error executing query");
-    }
+  try {
+    connection.query("SELECT * FROM submissions", (err, results) => {
+      if (err) {
+        console.error("Error executing query: " + err.stack);
+        return res.status(500).send("Error executing query");
+      }
 
-    if (!results || results.length === 0) {
-      return res.status(404).send("No submissions found");
-    }
+      if (!results || results.length === 0) {
+        return res.status(404).send("No submissions found");
+      }
 
-    res.json(results);
-  });
+      res.json(results);
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // POST /submissions/create
